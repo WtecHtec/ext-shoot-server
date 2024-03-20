@@ -7,7 +7,7 @@ const pm2Path = path.join(__dirname, 'node_modules', '.bin', 'pm2');
 const indexPath = path.join(__dirname, 'index.js')
 
 if (!arg1 || arg1 === 'start') {
-  exec(`chcp 65001 && ${pm2Path} start ${indexPath} --name extss` , { encoding: 'utf8' },  (error, stdout, stderr) => {
+  exec(`${pm2Path} start ${indexPath} --name extss` , { encoding: 'utf8' },  (error, stdout, stderr) => {
     if (error) {
         console.error(`exec error: ${error}`);
         return;
@@ -16,7 +16,7 @@ if (!arg1 || arg1 === 'start') {
     console.error(`stderr: ${stderr}`);
   });
 } else if (arg1 === 'stop') {
-  exec(`chcp 65001 && ${pm2Path} delete ${indexPath}` , { encoding: 'utf8' },  (error, stdout, stderr) => {
+  exec(`${pm2Path} delete ${indexPath}` , { encoding: 'utf8' },  (error, stdout, stderr) => {
     if (error) {
         console.error(`exec error: ${error}`);
         return;
