@@ -1,0 +1,19 @@
+{
+  "name": "ext-shoot-server",
+  "version": "1.0.0",
+  "description": "Chrome Plugin Ext Shoot Server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "explorer-opener": "^1.0.1",
+    "express": "^4.18.3"
+  },
+  "devDependencies": {
+    "cors": "^2.8.5"
+  }
+}
