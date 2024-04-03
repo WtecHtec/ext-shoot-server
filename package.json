@@ -1,5 +1,5 @@
 {
-  "name": "ext-shoot",
+  "name": "extss",
   "version": "0.0.1",
   "description": "Chrome Plugin Ext Shoot Server",
   "main": "server.js",
