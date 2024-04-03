@@ -1,13 +1,11 @@
 #!/usr/bin/env node
 const { exec } = require('child_process');
-const path = require('path')
+const path = require('path');
 const arg1 = process.argv[2];
-// 获取项目中安装的 pm2 的路径
-const pm2Path = path.join(__dirname, 'node_modules', '.bin', 'pm2');
-const indexPath = path.join(__dirname, 'index.js')
+const indexPath = path.join(__dirname, 'index.js');
 
 if (!arg1 || arg1 === 'start') {
-  exec(`${pm2Path} start ${indexPath} --name extss` , { encoding: 'utf8' },  (error, stdout, stderr) => {
+  exec(`npx pm2 start ${indexPath} --name extss`, { encoding: 'utf8' }, (error, stdout, stderr) => {
     if (error) {
         console.error(`exec error: ${error}`);
         return;
@@ -16,7 +14,7 @@ if (!arg1 || arg1 === 'start') {
     console.error(`stderr: ${stderr}`);
   });
 } else if (arg1 === 'stop') {
-  exec(`${pm2Path} delete ${indexPath}` , { encoding: 'utf8' },  (error, stdout, stderr) => {
+  exec(`npx pm2 delete ${indexPath}`, { encoding: 'utf8' }, (error, stdout, stderr) => {
     if (error) {
         console.error(`exec error: ${error}`);
         return;
@@ -25,5 +23,5 @@ if (!arg1 || arg1 === 'start') {
     console.error(`stderr: ${stderr}`);
   });
 } else {
-  console.log('You try extss start or extss stop')
+  console.log('Use extss start or extss stop');
 }
