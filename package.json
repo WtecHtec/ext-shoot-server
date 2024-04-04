@@ -20,10 +20,12 @@
   "author": "r7 <wtechtec@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.5",
     "explorer-opener": "^1.0.1",
     "express": "^4.18.3",
     "find-chrome-extension2": "^1.0.0",
+    "glob": "^10.3.12",
     "pm2": "^5.3.1"
   }
 }
