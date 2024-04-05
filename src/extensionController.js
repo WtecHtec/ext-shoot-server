@@ -1,8 +1,9 @@
 const { getExtDirPath, getAllHtmlDatas } = require('./utils');
 const { openExplorer } = require('explorer-opener');
-
+const { activateExtension } = require('../lib/activateExtension');
 const openExtension = (req, res) => {
   const pluginPath = getExtDirPath(req, res);
+
   if (!pluginPath) {
     res.status(404).json({ message: 'Not found' });
     return;
@@ -13,6 +14,7 @@ const openExtension = (req, res) => {
 
 const getHtmlPages = async (req, res) => {
   const pluginPath = getExtDirPath(req, res);
+  console.log('pluginPath', pluginPath)
   if (!pluginPath) {
     return;
   }
@@ -23,4 +25,15 @@ const getHtmlPages = async (req, res) => {
 const getHealth = (req, res) => {
   res.send('ok');
 }
-module.exports = { openExtension, getHtmlPages, getHealth };
+
+const activateExtensionByName = (req, res) => {
+  const { name } = req.body;
+  if (!name) {
+    res.status(400).json({ error: 'extName is required' });
+    return;
+  }
+  activateExtension(name);
+  res.status(200).json({ message: 'Activated' });
+
+};
+module.exports = { openExtension, getHtmlPages, getHealth, activateExtensionByName };

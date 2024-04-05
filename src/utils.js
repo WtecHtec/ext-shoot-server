@@ -16,7 +16,6 @@ const getExtDirPath = (req, res) => {
   if (!extId || !name) {
     return res.status(400).json({ error: 'extId and name are required' });
   }
-
   const browser = getBrowserType(req.headers['user-agent']);
   return findChromeExtension(decodeURIComponent(name), extId, browser);
 
