@@ -7,7 +7,7 @@
     "extss": "./src/server.js"
   },
   "scripts": {
-    "dev": "pm2 start src/index.js --name extss-dev --watch",
+    "dev": "pm2 start src/index.js --name extss --watch",
     "start": "node src/server.js",
     "test": "jest "
   },  
