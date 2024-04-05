@@ -1,7 +1,7 @@
 const fs = require('fs');
 const cheerio = require('cheerio');
 const { glob } = require('glob');
-const findChromeExtension = require('../lib/find-chrome-extension');
+const findChromeExtension = require('../lib/findChromeExtension');
 
 const getBrowserType = (userAgent) => {
 
