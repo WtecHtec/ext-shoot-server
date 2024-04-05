@@ -20,4 +20,7 @@ const getHtmlPages = async (req, res) => {
   res.status(200).json({ pages: htmlDatas });
 };
 
-module.exports = { openExtension, getHtmlPages };
+const getHealth = (req, res) => {
+  res.send('ok');
+}
+module.exports = { openExtension, getHtmlPages, getHealth };
