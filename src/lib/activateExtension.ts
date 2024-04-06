@@ -1,14 +1,5 @@
-
-async function activateExtension(extName) {
-    let runAppleScript;
-    try {
-        const appleScriptModule = await import('run-applescript');
-        runAppleScript = appleScriptModule.default || appleScriptModule.runAppleScript;
-    } catch (error) {
-        console.error('Failed to import run-applescript module:', error);
-        return false;
-    }
-
+import {runAppleScript} from "run-applescript";
+async function activateExtension(extName: string) : Promise<boolean> {
     const script = `
     on ActivateExtension(extName)
         try
@@ -43,6 +34,6 @@ async function activateExtension(extName) {
 }
 
 
-module.exports = {
+export {
     activateExtension
-}
+};

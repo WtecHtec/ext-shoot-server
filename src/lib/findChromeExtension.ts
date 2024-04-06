@@ -1,7 +1,8 @@
-const fs = require('fs');
-const path = require('path');
-const os = require('os');
-const BROWSER_MAPPING = require('./browser.config')
+import fs from "node:fs";
+import path from "node:path";
+import os from "node:os";
+import BROWSER_MAPPING from "./browser.config";
+
 const homeDirectory = os.homedir();
 
 /**
@@ -9,7 +10,7 @@ const homeDirectory = os.homedir();
  * @param {string} abspath - the absolute path to check
  * @returns {boolean} true if abspath is a directory
  */
-function isDirectory(abspath) {
+function isDirectory(abspath: string) {
 	if (fs.existsSync(abspath)) {
 		const stats = fs.statSync(abspath);
 		if (stats.isDirectory()) {
@@ -24,7 +25,7 @@ function isDirectory(abspath) {
  * @param {string} abspath - the absolute path to check
  * @returns {boolean} true if abspath is a file
  */
-function isFile(abspath) {
+function isFile(abspath: string): boolean {
 	if (fs.existsSync(abspath)) {
 		const stats = fs.statSync(abspath);
 		if (stats.isFile()) {
@@ -39,7 +40,7 @@ function isFile(abspath) {
  * @param {string} abspath - the absolute path of the directory
  * @returns {string[]} an array of directories
  */
-function getDirectories(abspath) {
+function getDirectories(abspath: string) {
 	const directories = [];
 	const names = fs.readdirSync(abspath);
 	for (const name of names) {
@@ -55,8 +56,8 @@ function getDirectories(abspath) {
  * Finds the platform-specific Google Chrome directory.
  * @returns {string} the absolute path of the Chrome directory
  */
-function getChromeDirectory(browser) {
-  const directories = BROWSER_MAPPING[browser] || {}
+function getChromeDirectory(browser: string) {
+  const directories = BROWSER_MAPPING[browser] || {};
 	const home = process.env.HOME || homeDirectory;
 
 	const platform = process.platform;
@@ -75,25 +76,25 @@ function getChromeDirectory(browser) {
  * Gets the extension directories from all Google Chrome profiles.
  * @returns {string[]} an array of directories
  */
-function getExtensionDirectories(browser) {
+function getExtensionDirectories(browser: string) {
 	const directories = [];
 	const chrome = getChromeDirectory(browser);
 	if (!chrome) return [];
-	const extPathMap = {}
+	const extPathMap: any = {};
 	const names = fs.readdirSync(chrome);
 	for (const name of names) {
-		const abspath = path.join(chrome, name, 'Extensions');
-		if ((name === 'Default' || name.startsWith('Profile ')) && isDirectory(abspath)) {
-      console.log('abspath--', abspath)
+		const abspath = path.join(chrome, name, "Extensions");
+		if ((name === "Default" || name.startsWith("Profile ")) && isDirectory(abspath)) {
+      console.log("abspath--", abspath);
 			const extensions = getDirectories(abspath);
 			for (const extension of extensions) {
-				let lastDirName = path.basename(extension);
+				const lastDirName = path.basename(extension);
 				const versions = getDirectories(extension);
 				directories.push(...versions);
 				extPathMap[lastDirName] = {
 					extensionDir: extension,
 					versionsDir: [...versions],
-				}
+				};
 			}
 		}
 	}
@@ -106,13 +107,13 @@ function getExtensionDirectories(browser) {
  * @param {string} name - the extension name
  * @returns {string} the extension directory
  */
-function findChromeExtension(name, extId, browser) {
+function findChromeExtension(name: any, extId: string | number, browser: string) {
 	const [directories, extPathMap] = getExtensionDirectories(browser);
-	if (!directories) return null
+	if (!directories) return null;
 	for (const directory of directories) {
-		const file = path.join(directory, 'manifest.json');
+		const file = path.join(directory, "manifest.json");
 		if (isFile(file)) {
-			const json = fs.readFileSync(file, { encoding: 'utf8' });
+			const json = fs.readFileSync(file, { encoding: "utf8" });
 			const manifest = JSON.parse(json);
 			if (manifest.name === name) {
 				return directory;
@@ -125,48 +126,48 @@ function findChromeExtension(name, extId, browser) {
   if (extId) {
     return findChromeExtensionByLocal(name, extId,browser);
   }
-  return null
+  return null;
 }
 
 
-function findPreferences(browser) {
+function findPreferences(browser: string) {
 	const chrome = getChromeDirectory(browser);
 	if (!chrome) return [];
 	const names = fs.readdirSync(chrome);
-  const directories = ['Secure Preferences', 'Preferences']
-	const preferencesfiles = []
+  const directories = ["Secure Preferences", "Preferences"];
+	const preferencesfiles: string[] = [];
 	for (const name of names) {
 		directories.forEach(item => {
 			const abspath = path.join(chrome, name, item);
-			if ((name === 'Default') && isFile(abspath)) {
-				preferencesfiles.push(abspath)
+			if ((name === "Default") && isFile(abspath)) {
+				preferencesfiles.push(abspath);
 			}
-		})
+		});
 	}
-	return preferencesfiles
+	return preferencesfiles;
 }
 
 /**
  * development
- * @param {*} name 
+ * @param {*} _name 
  * @param {*} id 
  * @returns 
  */
-function findChromeExtensionByLocal(name, id, browser) {
-	const preferencesfiles = findPreferences(browser)
-	if (!preferencesfiles || !preferencesfiles.length) return null
+function findChromeExtensionByLocal(_name: any, id: string | number, browser: string) {
+	const preferencesfiles = findPreferences(browser);
+	if (!preferencesfiles || !preferencesfiles.length) return null;
 	for (const directory of preferencesfiles) {
-		const json = fs.readFileSync(directory, { encoding: 'utf8' });
+		const json = fs.readFileSync(directory, { encoding: "utf8" });
 		const manifest = JSON.parse(json);
 		if (manifest
 			&& manifest.extensions
 			&& manifest.extensions.settings
 			&& manifest.extensions.settings[id]
 			&& manifest.extensions.settings[id].path) {
-			return manifest.extensions.settings[id].path
+			return manifest.extensions.settings[id].path;
 		}
 	}
-	return null
+	return null;
 }
 
-module.exports = findChromeExtension
+export default findChromeExtension;

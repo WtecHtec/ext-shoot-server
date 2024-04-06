@@ -9,9 +9,8 @@
 // }
 
 // main()
-describe.skip('End-to-End Test', () => {
+describe.skip("End-to-End Test", () => {
 	test("mock test", () => {
-		expect(1).toBe(1)
-	})
-	
-// });
+		expect(1).toBe(1);
+	});
+});

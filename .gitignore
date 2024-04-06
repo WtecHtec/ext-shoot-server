@@ -40,3 +40,6 @@ keys.json
 .idea/
 
 package-lock.json
+dist
+pnpm-lock.yaml
+yarn.lock
