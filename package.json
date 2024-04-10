@@ -1,6 +1,6 @@
 {
   "name": "extss",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Chrome Plugin Ext Shoot Server",
   "main": "server.js",
   "bin": {
@@ -10,8 +10,9 @@
     "dev": "pm2 start src/index.js --name extss --watch",
     "start": "node src/server.js",
     "test": "jest ",
-    "log": "pm2 logs extss"
-  },  
+    "log": "pm2 logs extss",
+    "release": "bumpp && npm publish"
+  },
   "keywords": [
     "Google",
     "Chrome",
@@ -33,6 +34,7 @@
     "run-applescript": "^7.0.0"
   },
   "devDependencies": {
+    "bumpp": "^9.4.0",
     "jest": "^29.7.0",
     "supertest": "^6.3.4"
   }
