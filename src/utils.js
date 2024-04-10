@@ -18,8 +18,8 @@ const getExtDirPath = (req, res) => {
   }
   const browser = getBrowserType(req.headers['user-agent']);
   return findChromeExtension(decodeURIComponent(name), extId, browser);
-
 };
+
 
 const getAllHtmlDatas = async (folderPath) => {
   try {
