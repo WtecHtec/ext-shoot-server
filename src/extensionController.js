@@ -1,8 +1,8 @@
 const { getExtDirPath, getAllHtmlDatas } = require('./utils');
 const { openExplorer } = require('explorer-opener');
 const { activateExtension, getBrowserInfo } = require('../lib/activateExtension');
-const openExtension = (req, res) => {
-    const pluginPath = getExtDirPath(req, res);
+const openExtension = async (req, res) => {
+    const pluginPath = await getExtDirPath(req, res);
 
     if (!pluginPath) {
         res.status(404).json({ message: 'Not found' });
