@@ -4,6 +4,7 @@ const path = require('path');
 const arg1 = process.argv[2];
 const indexPath = path.join(__dirname, 'index.js');
 
+
 if (!arg1 || arg1 === 'start') {
   exec(`npx pm2 start ${indexPath} --name extss`, { encoding: 'utf8' }, (error, stdout, stderr) => {
     if (error) {
@@ -23,5 +24,5 @@ if (!arg1 || arg1 === 'start') {
     console.error(`stderr: ${stderr}`);
   });
 } else {
-  console.log('Use extss start or extss stop');
+  console.log('Use "extss start" or "extss stop"');
 }

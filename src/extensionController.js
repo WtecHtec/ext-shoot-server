@@ -23,8 +23,7 @@ let detectBrowser = async (req, res) => {
 
 
 const getHtmlPages = async (req, res) => {
-    const pluginPath = getExtDirPath(req, res);
-    console.log('pluginPath', pluginPath)
+    const pluginPath = await getExtDirPath(req, res);
     if (!pluginPath) {
         return;
     }

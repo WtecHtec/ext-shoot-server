@@ -1,6 +1,6 @@
 {
   "name": "extss",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Chrome Plugin Ext Shoot Server",
   "main": "server.js",
   "bin": {
@@ -9,6 +9,7 @@
   "scripts": {
     "dev": "pm2 start src/index.js --name extss --watch",
     "start": "node src/server.js",
+		"stop": "node src/server.js stop",
     "test": "jest ",
     "log": "pm2 logs extss",
     "release": "bumpp && npm publish"

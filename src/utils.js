@@ -1,5 +1,5 @@
 const fs = require('fs');
-const cheerio = require('cheerio');
+// const cheerio = require('cheerio');
 const { glob } = require('glob');
 const findChromeExtension = require('../lib/findChromeExtension');
 const { getBrowserInfo } = require("../lib/activateExtension");
@@ -40,11 +40,12 @@ const getExtDirPath = async (req, res) => {
 const getAllHtmlDatas = async (folderPath) => {
     try {
         const files = await glob(`${ folderPath }/**/*.html`);
+				// console.log('files--', folderPath);
         return files.map((file) => {
-            const html = fs.readFileSync(file, 'utf-8');
-            const $ = cheerio.load(html);
+            // const html = fs.readFileSync(file, 'utf-8');
+            // const $ = cheerio.load(html);
             return {
-                title: $('title').text().trim() || '',
+                // title: $('title').text().trim() || '',
                 path: file.split(folderPath)[1],
             };
         });
